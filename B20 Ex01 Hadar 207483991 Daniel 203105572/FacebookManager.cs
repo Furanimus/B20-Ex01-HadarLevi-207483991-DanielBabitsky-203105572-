@@ -1,24 +1,23 @@
 ﻿using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
     public class FacebookManager
     {
         public const string AppID = "970453233350486";
-        public User LoggedInUser { get; set; }
+
 
         public LoginResult LoginResult { get; set; }
+
+        public User LoggedInUser { get; set; }
+
 
         public FacebookManager()
         {
         }
-        public void Login()
+
+        public bool Login()
         {
             LoginResult = FacebookService.Login(
                AppID,
@@ -40,7 +39,16 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                "user_photos",
                "user_posts",
                "user_hometown");
+
+            if (!LoginResult.FacebookOAuthResult.IsSuccess)
+            {
+                return false;   
+            }
+
             LoggedInUser = LoginResult.LoggedInUser;
+
+            return true;
         }
+
     }
 }
