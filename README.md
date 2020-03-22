@@ -1,2 +1,2 @@
-# B20-Ex01-HadarLevi-207483991-DanielBabitsky-203105572-
+# B20-Ex01-Hadar-207483991-Daniel-203105572-
 Design Patterns Assignment
