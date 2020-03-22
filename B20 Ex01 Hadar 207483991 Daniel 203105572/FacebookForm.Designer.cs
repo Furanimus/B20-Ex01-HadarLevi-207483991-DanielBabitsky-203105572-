@@ -35,7 +35,7 @@
             // 
             this.m_LoginLogoutBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.m_LoginLogoutBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.m_LoginLogoutBtn.Location = new System.Drawing.Point(161, 85);
+            this.m_LoginLogoutBtn.Location = new System.Drawing.Point(57, 36);
             this.m_LoginLogoutBtn.Name = "m_LoginLogoutBtn";
             this.m_LoginLogoutBtn.Size = new System.Drawing.Size(203, 45);
             this.m_LoginLogoutBtn.TabIndex = 2;

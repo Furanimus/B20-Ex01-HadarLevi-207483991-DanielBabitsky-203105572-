@@ -10,6 +10,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
     public class FacebookManager
     {
+        public const string AppID = "970453233350486";
         public User LoggedInUser { get; set; }
 
         public LoginResult LoginResult { get; set; }
@@ -20,7 +21,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         public void Login()
         {
             LoginResult = FacebookService.Login(
-                "970453233350486",
+               AppID,
                "public_profile",
                "email",
                "publish_to_groups",
