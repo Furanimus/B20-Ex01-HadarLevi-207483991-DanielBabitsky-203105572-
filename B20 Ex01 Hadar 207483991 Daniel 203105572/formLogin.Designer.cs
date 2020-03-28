@@ -1,6 +1,6 @@
 ﻿namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
-    partial class frmLogin
+    partial class formLogin
     {
         /// <summary>
         /// Required designer variable.

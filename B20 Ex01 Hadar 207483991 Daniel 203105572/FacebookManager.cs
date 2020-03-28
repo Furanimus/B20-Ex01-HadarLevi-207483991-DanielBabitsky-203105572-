@@ -1,5 +1,6 @@
 ﻿using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
+using System.Windows.Forms;
 
 namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
@@ -7,11 +8,9 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
     {
         public const string AppID = "970453233350486";
 
-
         public LoginResult LoginResult { get; set; }
 
         public User LoggedInUser { get; set; }
-
 
         public FacebookManager()
         {
@@ -49,6 +48,14 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
             return true;
         }
+
+          public void Logout()
+          {
+               FacebookService.Logout(() => {
+                    MessageBox.Show("logout!");
+               });
+
+          }
 
     }
 }
