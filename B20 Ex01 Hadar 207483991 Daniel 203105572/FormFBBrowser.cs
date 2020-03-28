@@ -21,5 +21,10 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
           {
                webBrowserFacebook.Navigate("https://www.facebook.com");
           }
-     }
+
+        private void webBrowserFacebook_DocumentCompleted(object sender, WebBrowserDocumentCompletedEventArgs e)
+        {
+
+        }
+    }
 }

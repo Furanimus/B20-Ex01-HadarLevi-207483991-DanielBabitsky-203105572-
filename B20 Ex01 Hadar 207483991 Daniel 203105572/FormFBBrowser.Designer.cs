@@ -28,28 +28,29 @@
           /// </summary>
           private void InitializeComponent()
           {
-               this.webBrowserFacebook = new System.Windows.Forms.WebBrowser();
-               this.SuspendLayout();
-               // 
-               // webBrowserFacebook
-               // 
-               this.webBrowserFacebook.Dock = System.Windows.Forms.DockStyle.Fill;
-               this.webBrowserFacebook.Location = new System.Drawing.Point(0, 0);
-               this.webBrowserFacebook.MinimumSize = new System.Drawing.Size(20, 20);
-               this.webBrowserFacebook.Name = "webBrowserFacebook";
-               this.webBrowserFacebook.Size = new System.Drawing.Size(800, 450);
-               this.webBrowserFacebook.TabIndex = 0;
-               // 
-               // FormFBBrowser
-               // 
-               this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-               this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-               this.ClientSize = new System.Drawing.Size(800, 450);
-               this.Controls.Add(this.webBrowserFacebook);
-               this.Name = "FormFBBrowser";
-               this.Text = "FormFBBrowser";
-               this.Load += new System.EventHandler(this.FormFBBrowser_Load);
-               this.ResumeLayout(false);
+            this.webBrowserFacebook = new System.Windows.Forms.WebBrowser();
+            this.SuspendLayout();
+            // 
+            // webBrowserFacebook
+            // 
+            this.webBrowserFacebook.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.webBrowserFacebook.Location = new System.Drawing.Point(0, 0);
+            this.webBrowserFacebook.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowserFacebook.Name = "webBrowserFacebook";
+            this.webBrowserFacebook.Size = new System.Drawing.Size(800, 450);
+            this.webBrowserFacebook.TabIndex = 0;
+            this.webBrowserFacebook.DocumentCompleted += new System.Windows.Forms.WebBrowserDocumentCompletedEventHandler(this.webBrowserFacebook_DocumentCompleted);
+            // 
+            // FormFBBrowser
+            // 
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.webBrowserFacebook);
+            this.Name = "FormFBBrowser";
+            this.Text = "FormFBBrowser";
+            this.Load += new System.EventHandler(this.FormFBBrowser_Load);
+            this.ResumeLayout(false);
 
           }
 

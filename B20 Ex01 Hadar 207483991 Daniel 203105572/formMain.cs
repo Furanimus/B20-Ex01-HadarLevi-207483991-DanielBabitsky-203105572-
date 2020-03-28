@@ -11,7 +11,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
     {
         private const int k_PictureBoxSize = 64;
 
-        private readonly FacebookManager r_FacebookManager;
+        private FacebookManager r_FacebookManager;
 
         public User LoggedInUser
         {
