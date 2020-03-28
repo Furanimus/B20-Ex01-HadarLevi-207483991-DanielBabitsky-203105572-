@@ -46,7 +46,7 @@
                this.buttonFetchCheckins = new System.Windows.Forms.Button();
                this.listBoxGroups = new System.Windows.Forms.ListBox();
                this.listBoxCheckins = new System.Windows.Forms.ListBox();
-               this.textBox1 = new System.Windows.Forms.TextBox();
+               this.textBoxFriendSearch = new System.Windows.Forms.TextBox();
                this.buttonFindFriend = new System.Windows.Forms.Button();
                this.checkBoxRememberMe = new System.Windows.Forms.CheckBox();
                this.menuStrip1.SuspendLayout();
@@ -209,12 +209,12 @@
                this.listBoxCheckins.Size = new System.Drawing.Size(242, 212);
                this.listBoxCheckins.TabIndex = 15;
                // 
-               // textBox1
+               // textBoxFriendSearch
                // 
-               this.textBox1.Location = new System.Drawing.Point(19, 532);
-               this.textBox1.Name = "textBox1";
-               this.textBox1.Size = new System.Drawing.Size(234, 20);
-               this.textBox1.TabIndex = 16;
+               this.textBoxFriendSearch.Location = new System.Drawing.Point(19, 532);
+               this.textBoxFriendSearch.Name = "textBoxFriendSearch";
+               this.textBoxFriendSearch.Size = new System.Drawing.Size(234, 20);
+               this.textBoxFriendSearch.TabIndex = 16;
                // 
                // buttonFindFriend
                // 
@@ -224,6 +224,7 @@
                this.buttonFindFriend.TabIndex = 17;
                this.buttonFindFriend.Text = "Find Friends";
                this.buttonFindFriend.UseVisualStyleBackColor = true;
+               this.buttonFindFriend.Click += new System.EventHandler(this.buttonFindFriend_Click);
                // 
                // checkBoxRememberMe
                // 
@@ -243,7 +244,7 @@
                this.ClientSize = new System.Drawing.Size(1053, 703);
                this.Controls.Add(this.checkBoxRememberMe);
                this.Controls.Add(this.buttonFindFriend);
-               this.Controls.Add(this.textBox1);
+               this.Controls.Add(this.textBoxFriendSearch);
                this.Controls.Add(this.listBoxCheckins);
                this.Controls.Add(this.listBoxGroups);
                this.Controls.Add(this.buttonFetchCheckins);
@@ -288,7 +289,7 @@
           private System.Windows.Forms.Button buttonFetchCheckins;
           private System.Windows.Forms.ListBox listBoxGroups;
           private System.Windows.Forms.ListBox listBoxCheckins;
-          private System.Windows.Forms.TextBox textBox1;
+          private System.Windows.Forms.TextBox textBoxFriendSearch;
           private System.Windows.Forms.Button buttonFindFriend;
           private System.Windows.Forms.CheckBox checkBoxRememberMe;
      }

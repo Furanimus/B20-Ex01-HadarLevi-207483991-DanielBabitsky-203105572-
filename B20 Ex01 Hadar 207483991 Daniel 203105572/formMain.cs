@@ -41,6 +41,21 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
           {
           }
 
+          protected override void OnClosing(CancelEventArgs i_Args)
+          {
+               r_FacebookManager.Logout();
+
+               base.OnClosing(i_Args);
+          }
+
+          protected override void OnClosed(EventArgs i_Args)
+          {
+               Form form = MdiParent;
+               form.Close();
+
+               base.OnClosed(i_Args);
+          }
+
           private void lblHello_Click(object i_Sender, EventArgs i_Args)
           {
           }
@@ -81,6 +96,11 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                fetchCheckins();
           }
 
+          private void buttonFetchGroups_Click(object i_Sender, EventArgs i_Args)
+          {
+               fetchGroups();
+          }
+
           private void fetchFriends()
           {
                foreach (User friend in LoggedInUser.Friends)
@@ -99,9 +119,6 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
           private void fetchGroups()
           {
-               
-               
-
                foreach (Group group in LoggedInUser.Groups)
                {
                     listBoxGroups.Items.Add(group);
@@ -110,14 +127,19 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
           private void formMain_FormClosing(object sender, FormClosingEventArgs e)
           {
-               
           }
 
-          private void buttonFetchGroups_Click(object sender, EventArgs e)
+          private void buttonFindFriend_Click(object i_Sender, EventArgs i_Args)
           {
-               r_FacebookManager.Logout();
+               listBoxFriends.Items.Clear();
 
-               //fetchGroups(); 
+               foreach (User friend in LoggedInUser.Friends)
+               {
+                    if (friend.ToString().Contains(textBoxFriendSearch.Text))
+                    {
+                         listBoxFriends.Items.Add(friend);
+                    }
+               }
           }
      }
 }

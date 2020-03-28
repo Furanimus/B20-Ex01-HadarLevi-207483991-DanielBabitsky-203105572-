@@ -6,7 +6,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
     public class FacebookManager
     {
-        public const string AppID = "970453233350486";
+        public const string k_AppID = "970453233350486";
 
         public LoginResult LoginResult { get; set; }
 
@@ -19,7 +19,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         public bool Login()
         {
             LoginResult = FacebookService.Login(
-               AppID,
+               k_AppID,
                "public_profile",
                "email",
                "publish_to_groups",
@@ -45,16 +45,15 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             }
 
             LoggedInUser = LoginResult.LoggedInUser;
-
+            
             return true;
         }
 
           public void Logout()
           {
-               FacebookService.Logout(() => {
-                    MessageBox.Show("logout!");
-               });
-
+               //FacebookService.Logout(() => {
+               //     MessageBox.Show("logout!")
+               //});
           }
 
     }
