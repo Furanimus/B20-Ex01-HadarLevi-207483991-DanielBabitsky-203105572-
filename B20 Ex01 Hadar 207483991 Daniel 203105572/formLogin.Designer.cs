@@ -30,6 +30,7 @@
         {
             this.m_LoginLogoutBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.chkRememberMe = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -56,21 +57,33 @@
             this.pictureBox1.TabStop = false;
             this.pictureBox1.Click += new System.EventHandler(this.pictureBox1_Click);
             // 
-            // frmLogin
+            // chkRememberMe
+            // 
+            this.chkRememberMe.AutoSize = true;
+            this.chkRememberMe.Location = new System.Drawing.Point(30, 556);
+            this.chkRememberMe.Name = "chkRememberMe";
+            this.chkRememberMe.Size = new System.Drawing.Size(95, 17);
+            this.chkRememberMe.TabIndex = 5;
+            this.chkRememberMe.Text = "Remember Me";
+            this.chkRememberMe.UseVisualStyleBackColor = true;
+            // 
+            // formLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(456, 561);
+            this.ClientSize = new System.Drawing.Size(456, 607);
+            this.Controls.Add(this.chkRememberMe);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.m_LoginLogoutBtn);
-            this.Name = "frmLogin";
+            this.Name = "formLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
             this.Load += new System.EventHandler(this.FacebookForm_Load);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -78,6 +91,7 @@
 
         private System.Windows.Forms.Button m_LoginLogoutBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.CheckBox chkRememberMe;
     }
 }
 

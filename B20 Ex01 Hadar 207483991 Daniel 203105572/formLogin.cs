@@ -15,11 +15,10 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private void loginLogoutBtn_Click(object i_Sender, EventArgs i_Args)
         {
-            var loginSuccessfully = s_FacebookManager.Login();
-
+            var loginSuccessfully = s_FacebookManager.Login(chkRememberMe.Checked);
 
             if (loginSuccessfully)
-            { 
+            {
                 this.OpenMainWindow();
             }
             else

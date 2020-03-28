@@ -1,28 +1,34 @@
 ﻿using FacebookWrapper;
 using FacebookWrapper.ObjectModel;
-using System.Windows.Forms;
+using System.Configuration;
 
 namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
     public class FacebookManager
     {
-        public const string AppID = "970453233350486";
-
         public LoginResult LoginResult { get; set; }
 
         public User LoggedInUser { get; set; }
 
+        public AppSettings AppSettings { get; set; }
+
         public FacebookManager()
         {
+            AppSettings = new AppSettings();
+
+            if (AppSettings.RememberUser)
+            {
+                AppSettings.LoadFromFile();
+            }
         }
 
-        public bool Login()
+        public bool Login(bool rememberMe)
         {
+
             LoginResult = FacebookService.Login(
-               AppID,
+                ConfigurationManager.AppSettings["FacebookAppID"].ToString(),
                "public_profile",
                "email",
-               "publish_to_groups",
                "user_birthday",
                "user_age_range",
                "user_gender",
@@ -41,21 +47,44 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
             if (!LoginResult.FacebookOAuthResult.IsSuccess)
             {
-                return false;   
+                return false;
             }
 
             LoggedInUser = LoginResult.LoggedInUser;
+            AppSettings.SaveToFile();
 
             return true;
         }
 
-          public void Logout()
-          {
-               FacebookService.Logout(() => {
-                    MessageBox.Show("logout!");
-               });
+        public void Logout()
+        {
+            if (AppSettings.RememberUser == false)
+            {
+                FacebookService.Logout(null);
+                LoggedInUser = null;
+                LoginResult = null;
+            }
+        }
 
-          }
+        public FacebookObjectCollection<User> FetchFriends()
+        {
+            FacebookObjectCollection<User> userFriends = LoggedInUser.Friends;
 
+            return userFriends;
+        }
+
+        public FacebookObjectCollection<Checkin> FetchCheckins()
+        {
+            FacebookObjectCollection<Checkin> userCheckins = LoggedInUser.Checkins;
+
+            return userCheckins;
+        }
+
+        public FacebookObjectCollection<Group> FetchGroups()
+        {
+            FacebookObjectCollection<Group> userGroups = LoggedInUser.Groups;
+
+            return userGroups;
+        }
     }
 }
