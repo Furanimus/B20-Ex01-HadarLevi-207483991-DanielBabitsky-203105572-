@@ -30,47 +30,60 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         /// </summary>
         private void InitializeComponent()
         {
-            this.m_LoginBtn = new System.Windows.Forms.Button();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
-            this.SuspendLayout();
-            // 
-            // m_LoginBtn
-            // 
-            this.m_LoginBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
-            this.m_LoginBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.m_LoginBtn.Location = new System.Drawing.Point(30, 450);
-            this.m_LoginBtn.Name = "m_LoginBtn";
-            this.m_LoginBtn.Size = new System.Drawing.Size(400, 75);
-            this.m_LoginBtn.TabIndex = 2;
-            this.m_LoginBtn.Text = "Login";
-            this.m_LoginBtn.UseVisualStyleBackColor = false;
-            this.m_LoginBtn.Click += new System.EventHandler(this.m_LoginBtn_Click);
-            // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Image = global::B20_Ex01_Hadar_207483991_Daniel_203105572.Properties.Resources.facebook_icon;
-            this.pictureBox1.Location = new System.Drawing.Point(30, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(400, 400);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBox1.TabIndex = 4;
-            this.pictureBox1.TabStop = false;
-            // 
-            // formLogin
-            // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.Control;
-            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.ClientSize = new System.Drawing.Size(456, 561);
-            this.Controls.Add(this.pictureBox1);
-            this.Controls.Add(this.m_LoginBtn);
-            this.Name = "formLogin";
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Login";
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
-            this.ResumeLayout(false);
+               this.m_LoginBtn = new System.Windows.Forms.Button();
+               this.pictureBox1 = new System.Windows.Forms.PictureBox();
+               this.checkBoxRememberUser = new System.Windows.Forms.CheckBox();
+               ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+               this.SuspendLayout();
+               // 
+               // m_LoginBtn
+               // 
+               this.m_LoginBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
+               this.m_LoginBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+               this.m_LoginBtn.Location = new System.Drawing.Point(30, 450);
+               this.m_LoginBtn.Name = "m_LoginBtn";
+               this.m_LoginBtn.Size = new System.Drawing.Size(400, 75);
+               this.m_LoginBtn.TabIndex = 2;
+               this.m_LoginBtn.Text = "Login";
+               this.m_LoginBtn.UseVisualStyleBackColor = false;
+               this.m_LoginBtn.Click += new System.EventHandler(this.m_LoginBtn_Click);
+               // 
+               // pictureBox1
+               // 
+               this.pictureBox1.Image = global::B20_Ex01_Hadar_207483991_Daniel_203105572.Properties.Resources.facebook_icon;
+               this.pictureBox1.Location = new System.Drawing.Point(30, 12);
+               this.pictureBox1.Name = "pictureBox1";
+               this.pictureBox1.Size = new System.Drawing.Size(400, 400);
+               this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+               this.pictureBox1.TabIndex = 4;
+               this.pictureBox1.TabStop = false;
+               // 
+               // checkBoxRememberUser
+               // 
+               this.checkBoxRememberUser.AutoSize = true;
+               this.checkBoxRememberUser.Location = new System.Drawing.Point(30, 427);
+               this.checkBoxRememberUser.Name = "checkBoxRememberUser";
+               this.checkBoxRememberUser.Size = new System.Drawing.Size(95, 17);
+               this.checkBoxRememberUser.TabIndex = 5;
+               this.checkBoxRememberUser.Text = "Remember Me";
+               this.checkBoxRememberUser.UseVisualStyleBackColor = true;
+               // 
+               // formLogin
+               // 
+               this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+               this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+               this.BackColor = System.Drawing.SystemColors.Control;
+               this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+               this.ClientSize = new System.Drawing.Size(456, 561);
+               this.Controls.Add(this.checkBoxRememberUser);
+               this.Controls.Add(this.pictureBox1);
+               this.Controls.Add(this.m_LoginBtn);
+               this.Name = "formLogin";
+               this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+               this.Text = "Login";
+               ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+               this.ResumeLayout(false);
+               this.PerformLayout();
 
         }
 
@@ -78,6 +91,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private System.Windows.Forms.Button m_LoginBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
-    }
+          private CheckBox checkBoxRememberUser;
+     }
 }
 
