@@ -32,6 +32,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         {
             this.m_LoginBtn = new System.Windows.Forms.Button();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.m_RemberMeCheckbox = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -57,6 +58,16 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             this.pictureBox1.TabIndex = 4;
             this.pictureBox1.TabStop = false;
             // 
+            // m_RemberMeCheckbox
+            // 
+            this.m_RemberMeCheckbox.AutoSize = true;
+            this.m_RemberMeCheckbox.Location = new System.Drawing.Point(30, 532);
+            this.m_RemberMeCheckbox.Name = "m_RemberMeCheckbox";
+            this.m_RemberMeCheckbox.Size = new System.Drawing.Size(95, 17);
+            this.m_RemberMeCheckbox.TabIndex = 6;
+            this.m_RemberMeCheckbox.Text = "Remember Me";
+            this.m_RemberMeCheckbox.UseVisualStyleBackColor = true;
+            // 
             // formLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -64,13 +75,16 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             this.BackColor = System.Drawing.SystemColors.Control;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(456, 561);
+            this.Controls.Add(this.m_RemberMeCheckbox);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.m_LoginBtn);
             this.Name = "formLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formLogin_FormClosed);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -78,6 +92,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private System.Windows.Forms.Button m_LoginBtn;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private CheckBox m_RemberMeCheckbox;
     }
 }
 

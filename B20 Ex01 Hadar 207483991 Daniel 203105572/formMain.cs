@@ -1,6 +1,8 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace B20_Ex01_Hadar_207483991_Daniel_203105572
@@ -39,6 +41,10 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private Image LoadImage(string i_Url)
         {
+            if (string.IsNullOrEmpty(i_Url))
+            {
+                return null;
+            }
             System.Net.WebRequest request = System.Net.WebRequest.Create(i_Url);
 
             System.Net.WebResponse response = request.GetResponse();
@@ -64,8 +70,9 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             //}
         }
 
-        private void CreateUserFriend(Control panel, int i_Index, string i_Name, string i_Url)
+        private void fillPanelTextAndPicture(Control panel, int i_Index, string i_Name, string i_Url)
         {
+
             var label = new Label() { Text = i_Name };
             label.Top = k_PictureBoxSize * i_Index + i_Index * 10 + 30;
             label.Left = 74;
@@ -73,14 +80,19 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             label.Font = new Font("Arial", 12);
             panel.Controls.Add(label);
 
-            Bitmap bitmap = new Bitmap(LoadImage(i_Url), new Size(k_PictureBoxSize, k_PictureBoxSize));
-            PictureBox pictureBox = new PictureBox() { Image = bitmap };
-            pictureBox.Top = k_PictureBoxSize * i_Index + i_Index * 10;
-            pictureBox.Left = 0;
-            pictureBox.Width = k_PictureBoxSize;
-            pictureBox.Height = k_PictureBoxSize;
+            Image image = LoadImage(i_Url);
+            if (image != null)
+            {
+                Bitmap bitmap = new Bitmap(image, new Size(k_PictureBoxSize, k_PictureBoxSize));
+                PictureBox pictureBox = new PictureBox() { Image = bitmap };
+                pictureBox.Top = k_PictureBoxSize * i_Index + i_Index * 10;
+                pictureBox.Left = 0;
+                pictureBox.Width = k_PictureBoxSize;
+                pictureBox.Height = k_PictureBoxSize;
 
-            panel.Controls.Add(pictureBox);
+                panel.Controls.Add(pictureBox);
+            }
+
         }
 
         private void lblHello_Click(object i_Sender, EventArgs i_Args)
@@ -126,40 +138,63 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             displayCheckins();
         }
 
-        private void displayFriends()
+        private void displayFriends(string searchText = null)
         {
-            FacebookObjectCollection<User> userFriends = r_FacebookManager.FetchFriends();
             panelFriends.Controls.Clear();
-            int i = 0;
 
+            List<User> userFriends = r_FacebookManager.FetchFriends().ToList();
+            if (!string.IsNullOrWhiteSpace(searchText))
+            {
+                userFriends = userFriends.Where(friend => friend.Name.ToLower().Contains(searchText.ToLower())).ToList();
+            }
+
+            int i = 0;
             foreach (User friend in userFriends)
             {
-                CreateUserFriend(panelFriends, i, friend.Name, friend.PictureNormalURL);
+                fillPanelTextAndPicture(panelFriends, i, friend.Name, friend.PictureNormalURL);
                 i++;
             }
         }
 
-        private void displayCheckins()
+        private void displayCheckins(string searchText = null)
         {
-            FacebookObjectCollection<Checkin> userCheckins = r_FacebookManager.FetchCheckins();
-            int i = 0;
             panelChekins.Controls.Clear();
 
-            foreach (Checkin friend in userCheckins)
+            List<Checkin> userCheckins = r_FacebookManager.FetchCheckins().ToList();
+            if (!string.IsNullOrWhiteSpace(searchText))
             {
-                CreateUserFriend(panelChekins, i, friend.Name, friend.PictureURL);
+                userCheckins = userCheckins
+                    .Where(checkins => !string.IsNullOrWhiteSpace(checkins.Place.Location.City + checkins.Place.Location.Country))
+                    .Where(checkins => checkins.Place.Location.City.ToLower().Contains(searchText.ToLower()) ||
+                    checkins.Place.Location.Country.ToLower().Contains(searchText.ToLower())).ToList();
+            }
+
+            int i = 0;
+            foreach (Checkin checkins in userCheckins)
+            {
+                Location location = checkins.Place.Location;
+                fillPanelTextAndPicture(panelChekins, i, $"{location.City}, {location.Country}", checkins.PictureURL);
                 i++;
             }
         }
 
-        private void displayGroups()
+        private void displayPosts(string searchText = null)
         {
-            listBoxGroups.Items.Clear();
-            FacebookObjectCollection<Group> userGroups = r_FacebookManager.FetchGroups();
-
-            foreach (Group group in userGroups)
+            panelPosts.Controls.Clear();
+            List<Post> userPosts = r_FacebookManager.FetchPosts().ToList();
+            if (!string.IsNullOrWhiteSpace(searchText))
             {
-                listBoxGroups.Items.Add(group.Name);
+                userPosts = userPosts
+                    .Where(post => !string.IsNullOrWhiteSpace(post.Message))
+                    .Where(post => post.Message.ToLower().Contains(searchText.ToLower()))
+                    .ToList();
+            }
+
+            int i = 0;
+            foreach (Post post in userPosts)
+            {
+                fillPanelTextAndPicture(panelPosts, i, post.Message, post.PictureURL);
+                i++;
             }
         }
 
@@ -168,9 +203,9 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         }
 
-        private void buttonFetchGroups_Click(object sender, EventArgs e)
+        private void buttonFetchPosts_Click(object sender, EventArgs e)
         {
-            displayGroups();
+            displayPosts();
         }
 
         private void formMain_FormClosed(object sender, FormClosedEventArgs e)
@@ -181,9 +216,14 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         private void button1_Click(object sender, EventArgs e)
         {
             r_FacebookManager.Logout();
-
+            OpenLoginWindow();
         }
-
+        public void OpenLoginWindow()
+        {
+            Hide();
+            formLogin form = new formLogin();
+            form.Show();
+        }
         private void listBoxFriends_SelectedIndexChanged(object sender, EventArgs e)
         {
 
@@ -197,16 +237,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private void buttonFindFriend_Click(object i_Sender, EventArgs i_Args)
         {
-            panelFriends.Controls.Clear();
-            FacebookObjectCollection<User> userFriends = r_FacebookManager.FetchFriends();
-
-            foreach (User friend in userFriends)
-            {
-                if (friend.Name.ToLower().Contains(textBoxFriendSearch.Text.ToLower()))
-                {
-                    CreateUserFriend(panelFriends, 0, friend.Name, friend.PictureNormalURL);
-                }
-            }
+            displayFriends(textBoxFriendSearch.Text);
         }
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
@@ -269,6 +300,62 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         private void lblHello_Click_1(object sender, EventArgs e)
         {
 
+        }
+
+        protected override void OnFormClosing(FormClosingEventArgs e)
+        {
+            base.OnFormClosing(e);
+            if (r_FacebookManager.LoginResult != null)
+            {
+                if (!string.IsNullOrEmpty(r_FacebookManager.LoginResult.AccessToken))
+                {
+                    r_FacebookManager.AppSettings.AccessToken = r_FacebookManager.LoginResult.AccessToken;
+                }
+            }
+
+            r_FacebookManager.AppSettings.SaveToFile();
+        }
+
+        private void buttonFindCheckin_Click(object sender, EventArgs e)
+        {
+            displayCheckins(textBoxCheckinsSearch.Text);
+        }
+
+        private void buttonFindPosts_Click(object sender, EventArgs e)
+        {
+            displayPosts(textBoxPostsSearch.Text);
+
+        }
+
+        private void textBoxFriendSearch_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void label5_Click(object sender, EventArgs e)
+        {
+        }
+
+        private void m_PostBtn_Click(object sender, EventArgs e)
+        {
+            FormTextFill newPost = new FormTextFill();
+            newPost.ShowDialog();
+            if (!string.IsNullOrEmpty(newPost.UserInput)
+                && !newPost.IsCanceled)
+            {
+                try
+                {
+                    r_FacebookManager.PostStatus(newPost.UserInput);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Nothing was happened");
+            }
         }
     }
 }

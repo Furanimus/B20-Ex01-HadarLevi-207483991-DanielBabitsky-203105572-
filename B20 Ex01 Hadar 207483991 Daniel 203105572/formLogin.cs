@@ -1,7 +1,4 @@
-﻿using FacebookWrapper;
-using FacebookWrapper.ObjectModel;
-using System;
-using System.Configuration;
+﻿using System;
 using System.Windows.Forms;
 
 namespace B20_Ex01_Hadar_207483991_Daniel_203105572
@@ -15,6 +12,10 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             s_FacebookManager = new FacebookManager();
             InitializeComponent();
 
+            if (s_FacebookManager.AppSettings.RememberUser)
+            {
+                m_RemberMeCheckbox.Checked = s_FacebookManager.AppSettings.RememberUser;
+            }
         }
 
 
@@ -35,7 +36,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private void m_LoginBtn_Click(object sender, EventArgs e)
         {
-            bool loginSuccessfully = s_FacebookManager.Login();
+            bool loginSuccessfully = s_FacebookManager.Login(m_RemberMeCheckbox.Checked);
 
             if (loginSuccessfully)
             {
@@ -45,6 +46,11 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             {
                 MessageBox.Show($"There was an error login: {s_FacebookManager.LoginResult.ErrorMessage}");
             }
+        }
+
+        private void formLogin_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            Application.Exit();
         }
     }
 }

@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(formMain));
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -38,23 +39,33 @@
             this.pictureBoxProfilePicture = new System.Windows.Forms.PictureBox();
             this.lblName = new System.Windows.Forms.Label();
             this.lblHello = new System.Windows.Forms.Label();
-            this.buttonFetchFriends = new System.Windows.Forms.Button();
-            this.buttonFetchGroups = new System.Windows.Forms.Button();
-            this.buttonFetchCheckins = new System.Windows.Forms.Button();
-            this.listBoxGroups = new System.Windows.Forms.ListBox();
-            this.textBoxFriendSearch = new System.Windows.Forms.TextBox();
-            this.buttonFindFriend = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
-            this.panelFriends = new System.Windows.Forms.Panel();
-            this.panelChekins = new System.Windows.Forms.Panel();
             this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.Main = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.textBoxPostsSearch = new System.Windows.Forms.TextBox();
+            this.buttonFindPosts = new System.Windows.Forms.Button();
+            this.textBoxCheckinsSearch = new System.Windows.Forms.TextBox();
+            this.buttonFindCheckin = new System.Windows.Forms.Button();
+            this.panelPosts = new System.Windows.Forms.Panel();
+            this.buttonFetchFriends = new System.Windows.Forms.Button();
+            this.buttonFetchCheckins = new System.Windows.Forms.Button();
+            this.panelChekins = new System.Windows.Forms.Panel();
+            this.textBoxFriendSearch = new System.Windows.Forms.TextBox();
+            this.buttonFindFriend = new System.Windows.Forms.Button();
+            this.buttonFetchPosts = new System.Windows.Forms.Button();
+            this.panelFriends = new System.Windows.Forms.Panel();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.m_FaceBookBarPic = new System.Windows.Forms.PictureBox();
+            this.label5 = new System.Windows.Forms.Label();
+            this.m_BestPhotoBtn = new System.Windows.Forms.Button();
+            this.m_PostBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePicture)).BeginInit();
             this.Main.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.tabPage2.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_FaceBookBarPic)).BeginInit();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -95,9 +106,9 @@
             // 
             // buttonOpenFBBrowser
             // 
-            this.buttonOpenFBBrowser.Location = new System.Drawing.Point(921, 39);
+            this.buttonOpenFBBrowser.Location = new System.Drawing.Point(942, 46);
             this.buttonOpenFBBrowser.Name = "buttonOpenFBBrowser";
-            this.buttonOpenFBBrowser.Size = new System.Drawing.Size(120, 41);
+            this.buttonOpenFBBrowser.Size = new System.Drawing.Size(99, 25);
             this.buttonOpenFBBrowser.TabIndex = 7;
             this.buttonOpenFBBrowser.Text = "Open Facebook in broswer mode";
             this.buttonOpenFBBrowser.UseVisualStyleBackColor = true;
@@ -105,7 +116,7 @@
             // 
             // pictureBoxProfilePicture
             // 
-            this.pictureBoxProfilePicture.Location = new System.Drawing.Point(18, 58);
+            this.pictureBoxProfilePicture.Location = new System.Drawing.Point(12, 55);
             this.pictureBoxProfilePicture.Name = "pictureBoxProfilePicture";
             this.pictureBoxProfilePicture.Size = new System.Drawing.Size(100, 100);
             this.pictureBoxProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -115,8 +126,9 @@
             // lblName
             // 
             this.lblName.AutoSize = true;
+            this.lblName.BackColor = System.Drawing.Color.Transparent;
             this.lblName.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblName.Location = new System.Drawing.Point(83, 24);
+            this.lblName.Location = new System.Drawing.Point(83, 9);
             this.lblName.Name = "lblName";
             this.lblName.Size = new System.Drawing.Size(158, 31);
             this.lblName.TabIndex = 5;
@@ -125,94 +137,24 @@
             // lblHello
             // 
             this.lblHello.AutoSize = true;
+            this.lblHello.BackColor = System.Drawing.Color.Transparent;
             this.lblHello.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblHello.Location = new System.Drawing.Point(12, 24);
+            this.lblHello.Location = new System.Drawing.Point(12, 9);
             this.lblHello.Name = "lblHello";
             this.lblHello.Size = new System.Drawing.Size(76, 31);
             this.lblHello.TabIndex = 4;
             this.lblHello.Text = "Hello";
             this.lblHello.Click += new System.EventHandler(this.lblHello_Click_1);
             // 
-            // buttonFetchFriends
-            // 
-            this.buttonFetchFriends.Location = new System.Drawing.Point(42, 53);
-            this.buttonFetchFriends.Name = "buttonFetchFriends";
-            this.buttonFetchFriends.Size = new System.Drawing.Size(120, 41);
-            this.buttonFetchFriends.TabIndex = 24;
-            this.buttonFetchFriends.Text = "Fetch Friends";
-            this.buttonFetchFriends.Click += new System.EventHandler(this.buttonFetchFriends_Click_1);
-            // 
-            // buttonFetchGroups
-            // 
-            this.buttonFetchGroups.Location = new System.Drawing.Point(614, 53);
-            this.buttonFetchGroups.Name = "buttonFetchGroups";
-            this.buttonFetchGroups.Size = new System.Drawing.Size(120, 41);
-            this.buttonFetchGroups.TabIndex = 11;
-            this.buttonFetchGroups.Text = "Fetch Groups";
-            this.buttonFetchGroups.UseVisualStyleBackColor = true;
-            this.buttonFetchGroups.Click += new System.EventHandler(this.buttonFetchGroups_Click);
-            // 
-            // buttonFetchCheckins
-            // 
-            this.buttonFetchCheckins.Location = new System.Drawing.Point(333, 53);
-            this.buttonFetchCheckins.Name = "buttonFetchCheckins";
-            this.buttonFetchCheckins.Size = new System.Drawing.Size(120, 41);
-            this.buttonFetchCheckins.TabIndex = 12;
-            this.buttonFetchCheckins.Text = "Fetch Checkins";
-            this.buttonFetchCheckins.UseVisualStyleBackColor = true;
-            this.buttonFetchCheckins.Click += new System.EventHandler(this.buttonFetchCheckins_Click);
-            // 
-            // listBoxGroups
-            // 
-            this.listBoxGroups.FormattingEnabled = true;
-            this.listBoxGroups.Location = new System.Drawing.Point(614, 100);
-            this.listBoxGroups.Name = "listBoxGroups";
-            this.listBoxGroups.Size = new System.Drawing.Size(242, 212);
-            this.listBoxGroups.TabIndex = 13;
-            // 
-            // textBoxFriendSearch
-            // 
-            this.textBoxFriendSearch.Location = new System.Drawing.Point(42, 347);
-            this.textBoxFriendSearch.Name = "textBoxFriendSearch";
-            this.textBoxFriendSearch.Size = new System.Drawing.Size(234, 20);
-            this.textBoxFriendSearch.TabIndex = 16;
-            // 
-            // buttonFindFriend
-            // 
-            this.buttonFindFriend.Location = new System.Drawing.Point(278, 346);
-            this.buttonFindFriend.Name = "buttonFindFriend";
-            this.buttonFindFriend.Size = new System.Drawing.Size(106, 21);
-            this.buttonFindFriend.TabIndex = 17;
-            this.buttonFindFriend.Text = "Find Friends";
-            this.buttonFindFriend.UseVisualStyleBackColor = true;
-            this.buttonFindFriend.Click += new System.EventHandler(this.buttonFindFriend_Click);
-            // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(921, 86);
+            this.button1.Location = new System.Drawing.Point(942, 12);
             this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(120, 41);
+            this.button1.Size = new System.Drawing.Size(99, 25);
             this.button1.TabIndex = 19;
             this.button1.Text = "Logout";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // panelFriends
-            // 
-            this.panelFriends.Location = new System.Drawing.Point(42, 100);
-            this.panelFriends.Name = "panelFriends";
-            this.panelFriends.Size = new System.Drawing.Size(285, 212);
-            this.panelFriends.TabIndex = 26;
-            this.panelFriends.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
-            // 
-            // panelChekins
-            // 
-            this.panelChekins.AutoScroll = true;
-            this.panelChekins.Location = new System.Drawing.Point(333, 100);
-            this.panelChekins.Name = "panelChekins";
-            this.panelChekins.Size = new System.Drawing.Size(275, 212);
-            this.panelChekins.TabIndex = 27;
-            this.panelChekins.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
             // 
             // Main
             // 
@@ -229,13 +171,18 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tabPage1.Controls.Add(this.textBoxPostsSearch);
+            this.tabPage1.Controls.Add(this.buttonFindPosts);
+            this.tabPage1.Controls.Add(this.textBoxCheckinsSearch);
+            this.tabPage1.Controls.Add(this.buttonFindCheckin);
+            this.tabPage1.Controls.Add(this.panelPosts);
             this.tabPage1.Controls.Add(this.buttonFetchFriends);
             this.tabPage1.Controls.Add(this.buttonFetchCheckins);
             this.tabPage1.Controls.Add(this.panelChekins);
             this.tabPage1.Controls.Add(this.textBoxFriendSearch);
             this.tabPage1.Controls.Add(this.buttonFindFriend);
-            this.tabPage1.Controls.Add(this.buttonFetchGroups);
-            this.tabPage1.Controls.Add(this.listBoxGroups);
+            this.tabPage1.Controls.Add(this.buttonFetchPosts);
             this.tabPage1.Controls.Add(this.panelFriends);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
@@ -243,17 +190,127 @@
             this.tabPage1.Size = new System.Drawing.Size(1045, 512);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "Main";
-            this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // textBoxPostsSearch
+            // 
+            this.textBoxPostsSearch.Location = new System.Drawing.Point(657, 346);
+            this.textBoxPostsSearch.Name = "textBoxPostsSearch";
+            this.textBoxPostsSearch.Size = new System.Drawing.Size(173, 20);
+            this.textBoxPostsSearch.TabIndex = 31;
+            // 
+            // buttonFindPosts
+            // 
+            this.buttonFindPosts.Location = new System.Drawing.Point(836, 344);
+            this.buttonFindPosts.Name = "buttonFindPosts";
+            this.buttonFindPosts.Size = new System.Drawing.Size(106, 21);
+            this.buttonFindPosts.TabIndex = 32;
+            this.buttonFindPosts.Text = "Find Posts";
+            this.buttonFindPosts.UseVisualStyleBackColor = true;
+            this.buttonFindPosts.Click += new System.EventHandler(this.buttonFindPosts_Click);
+            // 
+            // textBoxCheckinsSearch
+            // 
+            this.textBoxCheckinsSearch.Location = new System.Drawing.Point(357, 347);
+            this.textBoxCheckinsSearch.Name = "textBoxCheckinsSearch";
+            this.textBoxCheckinsSearch.Size = new System.Drawing.Size(173, 20);
+            this.textBoxCheckinsSearch.TabIndex = 29;
+            // 
+            // buttonFindCheckin
+            // 
+            this.buttonFindCheckin.Location = new System.Drawing.Point(536, 344);
+            this.buttonFindCheckin.Name = "buttonFindCheckin";
+            this.buttonFindCheckin.Size = new System.Drawing.Size(106, 21);
+            this.buttonFindCheckin.TabIndex = 30;
+            this.buttonFindCheckin.Text = "Find Checkins";
+            this.buttonFindCheckin.UseVisualStyleBackColor = true;
+            this.buttonFindCheckin.Click += new System.EventHandler(this.buttonFindCheckin_Click);
+            // 
+            // panelPosts
+            // 
+            this.panelPosts.AutoScroll = true;
+            this.panelPosts.Location = new System.Drawing.Point(657, 100);
+            this.panelPosts.Name = "panelPosts";
+            this.panelPosts.Size = new System.Drawing.Size(285, 212);
+            this.panelPosts.TabIndex = 28;
+            // 
+            // buttonFetchFriends
+            // 
+            this.buttonFetchFriends.Location = new System.Drawing.Point(42, 53);
+            this.buttonFetchFriends.Name = "buttonFetchFriends";
+            this.buttonFetchFriends.Size = new System.Drawing.Size(120, 41);
+            this.buttonFetchFriends.TabIndex = 24;
+            this.buttonFetchFriends.Text = "Fetch Friends";
+            this.buttonFetchFriends.Click += new System.EventHandler(this.buttonFetchFriends_Click_1);
+            // 
+            // buttonFetchCheckins
+            // 
+            this.buttonFetchCheckins.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonFetchCheckins.Location = new System.Drawing.Point(357, 53);
+            this.buttonFetchCheckins.Name = "buttonFetchCheckins";
+            this.buttonFetchCheckins.Size = new System.Drawing.Size(120, 41);
+            this.buttonFetchCheckins.TabIndex = 12;
+            this.buttonFetchCheckins.Text = "Fetch Checkins";
+            this.buttonFetchCheckins.UseVisualStyleBackColor = false;
+            this.buttonFetchCheckins.Click += new System.EventHandler(this.buttonFetchCheckins_Click);
+            // 
+            // panelChekins
+            // 
+            this.panelChekins.AutoScroll = true;
+            this.panelChekins.Location = new System.Drawing.Point(357, 100);
+            this.panelChekins.Name = "panelChekins";
+            this.panelChekins.Size = new System.Drawing.Size(285, 212);
+            this.panelChekins.TabIndex = 27;
+            this.panelChekins.Paint += new System.Windows.Forms.PaintEventHandler(this.panel2_Paint);
+            // 
+            // textBoxFriendSearch
+            // 
+            this.textBoxFriendSearch.Location = new System.Drawing.Point(42, 347);
+            this.textBoxFriendSearch.Name = "textBoxFriendSearch";
+            this.textBoxFriendSearch.Size = new System.Drawing.Size(173, 20);
+            this.textBoxFriendSearch.TabIndex = 16;
+            this.textBoxFriendSearch.TextChanged += new System.EventHandler(this.textBoxFriendSearch_TextChanged);
+            // 
+            // buttonFindFriend
+            // 
+            this.buttonFindFriend.Location = new System.Drawing.Point(221, 346);
+            this.buttonFindFriend.Name = "buttonFindFriend";
+            this.buttonFindFriend.Size = new System.Drawing.Size(106, 21);
+            this.buttonFindFriend.TabIndex = 17;
+            this.buttonFindFriend.Text = "Find Friends";
+            this.buttonFindFriend.UseVisualStyleBackColor = true;
+            this.buttonFindFriend.Click += new System.EventHandler(this.buttonFindFriend_Click);
+            // 
+            // buttonFetchPosts
+            // 
+            this.buttonFetchPosts.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.buttonFetchPosts.Location = new System.Drawing.Point(657, 53);
+            this.buttonFetchPosts.Name = "buttonFetchPosts";
+            this.buttonFetchPosts.Size = new System.Drawing.Size(120, 41);
+            this.buttonFetchPosts.TabIndex = 11;
+            this.buttonFetchPosts.Text = "Fetch Posts";
+            this.buttonFetchPosts.UseVisualStyleBackColor = false;
+            this.buttonFetchPosts.Click += new System.EventHandler(this.buttonFetchPosts_Click);
+            // 
+            // panelFriends
+            // 
+            this.panelFriends.Location = new System.Drawing.Point(42, 100);
+            this.panelFriends.Name = "panelFriends";
+            this.panelFriends.Size = new System.Drawing.Size(285, 212);
+            this.panelFriends.TabIndex = 26;
+            this.panelFriends.Paint += new System.Windows.Forms.PaintEventHandler(this.panel1_Paint);
             // 
             // tabPage2
             // 
+            this.tabPage2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tabPage2.Controls.Add(this.m_PostBtn);
+            this.tabPage2.Controls.Add(this.m_BestPhotoBtn);
+            this.tabPage2.Controls.Add(this.label5);
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
             this.tabPage2.Size = new System.Drawing.Size(1045, 512);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "Best time to get the most likes";
-            this.tabPage2.UseVisualStyleBackColor = true;
             // 
             // tabPage3
             // 
@@ -264,6 +321,50 @@
             this.tabPage3.TabIndex = 2;
             this.tabPage3.Text = "Find the most active friend";
             this.tabPage3.UseVisualStyleBackColor = true;
+            // 
+            // m_FaceBookBarPic
+            // 
+            this.m_FaceBookBarPic.Image = ((System.Drawing.Image)(resources.GetObject("m_FaceBookBarPic.Image")));
+            this.m_FaceBookBarPic.Location = new System.Drawing.Point(4, -2);
+            this.m_FaceBookBarPic.Name = "m_FaceBookBarPic";
+            this.m_FaceBookBarPic.Size = new System.Drawing.Size(1043, 207);
+            this.m_FaceBookBarPic.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.m_FaceBookBarPic.TabIndex = 20;
+            this.m_FaceBookBarPic.TabStop = false;
+            // 
+            // label5
+            // 
+            this.label5.AutoSize = true;
+            this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.label5.Location = new System.Drawing.Point(26, 36);
+            this.label5.Name = "label5";
+            this.label5.Size = new System.Drawing.Size(384, 25);
+            this.label5.TabIndex = 2;
+            this.label5.Text = "Click run to find the best time for most likes!";
+            this.label5.Click += new System.EventHandler(this.label5_Click);
+            // 
+            // m_BestPhotoBtn
+            // 
+            this.m_BestPhotoBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.m_BestPhotoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.m_BestPhotoBtn.Location = new System.Drawing.Point(40, 101);
+            this.m_BestPhotoBtn.Name = "m_BestPhotoBtn";
+            this.m_BestPhotoBtn.Size = new System.Drawing.Size(165, 44);
+            this.m_BestPhotoBtn.TabIndex = 3;
+            this.m_BestPhotoBtn.Text = "run!";
+            this.m_BestPhotoBtn.UseVisualStyleBackColor = false;
+            // 
+            // m_PostBtn
+            // 
+            this.m_PostBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.m_PostBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
+            this.m_PostBtn.Location = new System.Drawing.Point(31, 319);
+            this.m_PostBtn.Name = "m_PostBtn";
+            this.m_PostBtn.Size = new System.Drawing.Size(293, 59);
+            this.m_PostBtn.TabIndex = 4;
+            this.m_PostBtn.Text = "Post something";
+            this.m_PostBtn.UseVisualStyleBackColor = false;
+            this.m_PostBtn.Click += new System.EventHandler(this.m_PostBtn_Click);
             // 
             // formMain
             // 
@@ -277,6 +378,7 @@
             this.Controls.Add(this.pictureBoxProfilePicture);
             this.Controls.Add(this.lblName);
             this.Controls.Add(this.lblHello);
+            this.Controls.Add(this.m_FaceBookBarPic);
             this.Name = "formMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "formMain";
@@ -287,6 +389,9 @@
             this.Main.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
+            this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.m_FaceBookBarPic)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -302,19 +407,27 @@
           private System.Windows.Forms.PictureBox pictureBoxProfilePicture;
           private System.Windows.Forms.Label lblName;
           private System.Windows.Forms.Label lblHello;
-          private System.Windows.Forms.Button buttonFetchFriends;
-          private System.Windows.Forms.Button buttonFetchGroups;
-          private System.Windows.Forms.Button buttonFetchCheckins;
-          private System.Windows.Forms.ListBox listBoxGroups;
-          private System.Windows.Forms.TextBox textBoxFriendSearch;
-          private System.Windows.Forms.Button buttonFindFriend;
         private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Panel panelFriends;
-        private System.Windows.Forms.Panel panelChekins;
         private System.Windows.Forms.ToolTip toolTip1;
         private System.Windows.Forms.TabControl Main;
-        private System.Windows.Forms.TabPage tabPage1;
         private System.Windows.Forms.TabPage tabPage2;
         private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.TabPage tabPage1;
+        private System.Windows.Forms.TextBox textBoxPostsSearch;
+        private System.Windows.Forms.Button buttonFindPosts;
+        private System.Windows.Forms.TextBox textBoxCheckinsSearch;
+        private System.Windows.Forms.Button buttonFindCheckin;
+        private System.Windows.Forms.Panel panelPosts;
+        private System.Windows.Forms.Button buttonFetchFriends;
+        private System.Windows.Forms.Button buttonFetchCheckins;
+        private System.Windows.Forms.Panel panelChekins;
+        private System.Windows.Forms.TextBox textBoxFriendSearch;
+        private System.Windows.Forms.Button buttonFindFriend;
+        private System.Windows.Forms.Button buttonFetchPosts;
+        private System.Windows.Forms.Panel panelFriends;
+        private System.Windows.Forms.PictureBox m_FaceBookBarPic;
+        private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button m_BestPhotoBtn;
+        private System.Windows.Forms.Button m_PostBtn;
     }
 }

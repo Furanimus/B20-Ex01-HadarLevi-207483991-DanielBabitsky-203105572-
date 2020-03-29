@@ -6,6 +6,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
     public class FacebookManager
     {
+
         public LoginResult LoginResult { get; set; }
 
         public User LoggedInUser { get; set; }
@@ -15,16 +16,11 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         public FacebookManager()
         {
             AppSettings = new AppSettings();
-
-            if (AppSettings.RememberUser)
-            {
-                AppSettings.LoadFromFile();
-            }
+            AppSettings.LoadFromFile();
         }
 
-        public bool Login()
+        public bool Login(bool rememeberMe)
         {
-
             LoginResult = FacebookService.Login(
                 ConfigurationManager.AppSettings["FacebookAppID"].ToString(),
                "public_profile",
@@ -33,6 +29,8 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                "user_age_range",
                "user_gender",
                "user_link",
+               "manage_pages",
+               "publish_pages",
                "user_tagged_places",
                "user_videos",
                "publish_to_groups",
@@ -45,13 +43,14 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                "user_posts",
                "user_hometown");
 
+            AppSettings.RememberUser = rememeberMe;
+
             if (!LoginResult.FacebookOAuthResult.IsSuccess)
             {
                 return false;
             }
 
             LoggedInUser = LoginResult.LoggedInUser;
-            AppSettings.SaveToFile();
 
             return true;
         }
@@ -80,11 +79,16 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             return userCheckins;
         }
 
-        public FacebookObjectCollection<Group> FetchGroups()
+        public FacebookObjectCollection<Post> FetchPosts()
         {
-            FacebookObjectCollection<Group> userGroups = LoggedInUser.Groups;
+            FacebookObjectCollection<Post> userPosts = LoggedInUser.Posts;
 
-            return userGroups;
+            return userPosts;
+        }
+
+        public void PostStatus(string userInput)
+        {
+            LoggedInUser.PostStatus(userInput);
         }
     }
 }
