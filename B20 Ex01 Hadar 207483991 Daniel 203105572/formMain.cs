@@ -132,6 +132,33 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             fBBrowser.Show();
         }
 
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            try
+            {
+                this.fetchUserInfo();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void fetchUserInfo()
+        {
+            try
+            {
+                displayCheckins();
+                displayFriends();
+                displayPosts();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
+        }
         private void buttonFetchCheckins_Click(object i_Sender, EventArgs i_Args)
         {
 
@@ -355,6 +382,19 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             else
             {
                 MessageBox.Show("Nothing was happened");
+            }
+        }
+
+        private void m_BestPhotoBtn_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                int bestHour = r_FacebookManager.BestTimeToGetMostLikes();
+                lblBestTimeToGetLikes.Text = $"The best time of day to get the most likes is: {bestHour}!";
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
             }
         }
     }

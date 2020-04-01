@@ -19,6 +19,26 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         }
 
 
+        protected override void OnShown(EventArgs e)
+        {
+            base.OnShown(e);
+            try
+            {
+                if (s_FacebookManager.AppSettings.RememberUser &&
+                    !string.IsNullOrEmpty(s_FacebookManager.AppSettings.AccessToken))
+                {
+                    s_FacebookManager.Connect();
+                    m_RemberMeCheckbox.Enabled = true;
+                    OpenMainWindow();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+        }
+
+
         public void OpenMainWindow()
         {
             Hide();

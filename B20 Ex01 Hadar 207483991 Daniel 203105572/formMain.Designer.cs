@@ -61,6 +61,7 @@
             this.label5 = new System.Windows.Forms.Label();
             this.m_BestPhotoBtn = new System.Windows.Forms.Button();
             this.m_PostBtn = new System.Windows.Forms.Button();
+            this.lblBestTimeToGetLikes = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePicture)).BeginInit();
             this.Main.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -302,6 +303,7 @@
             // tabPage2
             // 
             this.tabPage2.BackColor = System.Drawing.SystemColors.ActiveCaption;
+            this.tabPage2.Controls.Add(this.lblBestTimeToGetLikes);
             this.tabPage2.Controls.Add(this.m_PostBtn);
             this.tabPage2.Controls.Add(this.m_BestPhotoBtn);
             this.tabPage2.Controls.Add(this.label5);
@@ -353,6 +355,7 @@
             this.m_BestPhotoBtn.TabIndex = 3;
             this.m_BestPhotoBtn.Text = "run!";
             this.m_BestPhotoBtn.UseVisualStyleBackColor = false;
+            this.m_BestPhotoBtn.Click += new System.EventHandler(this.m_BestPhotoBtn_Click);
             // 
             // m_PostBtn
             // 
@@ -365,6 +368,16 @@
             this.m_PostBtn.Text = "Post something";
             this.m_PostBtn.UseVisualStyleBackColor = false;
             this.m_PostBtn.Click += new System.EventHandler(this.m_PostBtn_Click);
+            // 
+            // lblBestTimeToGetLikes
+            // 
+            this.lblBestTimeToGetLikes.AutoSize = true;
+            this.lblBestTimeToGetLikes.BackColor = System.Drawing.Color.Transparent;
+            this.lblBestTimeToGetLikes.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblBestTimeToGetLikes.Location = new System.Drawing.Point(54, 171);
+            this.lblBestTimeToGetLikes.Name = "lblBestTimeToGetLikes";
+            this.lblBestTimeToGetLikes.Size = new System.Drawing.Size(0, 31);
+            this.lblBestTimeToGetLikes.TabIndex = 5;
             // 
             // formMain
             // 
@@ -429,5 +442,6 @@
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button m_BestPhotoBtn;
         private System.Windows.Forms.Button m_PostBtn;
+        private System.Windows.Forms.Label lblBestTimeToGetLikes;
     }
 }
