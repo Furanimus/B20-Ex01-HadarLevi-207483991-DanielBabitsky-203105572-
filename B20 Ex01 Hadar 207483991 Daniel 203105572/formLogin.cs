@@ -17,15 +17,14 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                 m_RemberMeCheckbox.Checked = s_FacebookManager.AppSettings.RememberUser;
             }
         }
-
-
+        
         protected override void OnShown(EventArgs e)
         {
             base.OnShown(e);
+
             try
             {
-                if (s_FacebookManager.AppSettings.RememberUser &&
-                    !string.IsNullOrEmpty(s_FacebookManager.AppSettings.AccessToken))
+                if (s_FacebookManager.AppSettings.RememberUser && !string.IsNullOrEmpty(s_FacebookManager.AppSettings.AccessToken))
                 {
                     s_FacebookManager.Connect();
                     m_RemberMeCheckbox.Enabled = true;
@@ -37,7 +36,6 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                 MessageBox.Show(ex.Message);
             }
         }
-
 
         public void OpenMainWindow()
         {
@@ -54,7 +52,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         {
         }
 
-        private void m_LoginBtn_Click(object sender, EventArgs e)
+        private void LoginBtn_Click(object sender, EventArgs e)
         {
             bool loginSuccessfully = s_FacebookManager.Login(m_RemberMeCheckbox.Checked);
 

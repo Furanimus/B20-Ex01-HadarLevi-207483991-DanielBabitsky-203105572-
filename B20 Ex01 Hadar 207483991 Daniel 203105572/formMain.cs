@@ -1,9 +1,11 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
 using System.Windows.Forms;
+using System.Windows.Forms.DataVisualization.Charting;
 
 namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
@@ -251,16 +253,14 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             formLogin form = new formLogin();
             form.Show();
         }
+
         private void listBoxFriends_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void lstFriends_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
-
 
         private void buttonFindFriend_Click(object i_Sender, EventArgs i_Args)
         {
@@ -269,12 +269,10 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private void splitContainer1_Panel1_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void splitContainer1_Panel2_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void buttonFetchFriends_Click_1(object sender, EventArgs e)
@@ -284,12 +282,10 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private void listBoxCheckins_SelectedIndexChanged(object sender, EventArgs e)
         {
-
         }
 
         private void splitContainer2_Panel2_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void splitContainer2_Panel1_Paint(object sender, PaintEventArgs e)
@@ -306,27 +302,22 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void panel2_Paint(object sender, PaintEventArgs e)
         {
-
         }
 
         private void toolStripMenuItem1_Click(object sender, EventArgs e)
         {
-
         }
 
         private void toolStripMenuItem1_Click_1(object sender, EventArgs e)
         {
-
         }
 
         private void lblHello_Click_1(object sender, EventArgs e)
         {
-
         }
 
         protected override void OnFormClosing(FormClosingEventArgs e)
@@ -366,9 +357,10 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         private void m_PostBtn_Click(object sender, EventArgs e)
         {
             FormTextFill newPost = new FormTextFill();
+            newPost.StartPosition = FormStartPosition.CenterParent;
             newPost.ShowDialog();
-            if (!string.IsNullOrEmpty(newPost.UserInput)
-                && !newPost.IsCanceled)
+            
+            if (!string.IsNullOrEmpty(newPost.UserInput) && !newPost.IsCanceled)
             {
                 try
                 {
@@ -381,11 +373,11 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             }
             else
             {
-                MessageBox.Show("Nothing was happened");
+                MessageBox.Show("Nothing happened");
             }
         }
 
-        private void m_BestPhotoBtn_Click(object sender, EventArgs e)
+        private void m_BestPhotoBtn_Click(object i_Sender, EventArgs i_Args)
         {
             try
             {
@@ -396,6 +388,43 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+
+        private void buttonGetMostActiveFriends_Click(object i_Sender, EventArgs i_Args)
+        {
+            //Call Activating Method
+
+            List<List<PostedItem>> userPosts = new List<List<PostedItem>>();
+            userPosts.Add(r_FacebookManager.FetchAlbums().ToList()) as PostedItem);
+            userPosts.Add(r_FacebookManager.FetchPosts().ToList() as PostedItem);
+            userPosts.Add(r_FacebookManager.FetchPosts().ToList() as PostedItem);
+            FacebookObjectCollection<Checkin> userCheckin = r_FacebookManager.FetchCheckins();
+
+           
+             //Tested Chart with
+
+             //this.chartMostActive.Series["Posts"].Points.AddXY("Dan", 13);
+             //this.chartMostActive.Series["Photos"].Points.AddXY("Dan", 33);
+             //this.chartMostActive.Series["Posts"].Points.AddXY("Her", 30);
+             //this.chartMostActive.Series["Likes"].Points.AddXY("Her", 20);
+        }
+
+        private void buttonColumnChart_Click(object i_Sender, EventArgs i_Args)
+        {
+             changeChartsView(SeriesChartType.Column);
+        }
+
+        private void buttonLineChart_Click(object i_Sender, EventArgs i_Args)
+        {
+             changeChartsView(SeriesChartType.Line);
+        }
+
+        private void changeChartsView (SeriesChartType i_ChartType)
+        {
+             foreach (Series series in chartMostActive.Series)
+             {
+                  series.ChartType = i_ChartType;
+             }
         }
     }
 }

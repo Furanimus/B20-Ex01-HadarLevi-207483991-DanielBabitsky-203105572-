@@ -46,7 +46,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             this.m_LoginBtn.TabIndex = 2;
             this.m_LoginBtn.Text = "Login";
             this.m_LoginBtn.UseVisualStyleBackColor = false;
-            this.m_LoginBtn.Click += new System.EventHandler(this.m_LoginBtn_Click);
+            this.m_LoginBtn.Click += new System.EventHandler(this.LoginBtn_Click);
             // 
             // pictureBox1
             // 

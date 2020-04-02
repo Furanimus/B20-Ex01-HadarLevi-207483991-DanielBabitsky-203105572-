@@ -7,8 +7,29 @@ using System.Linq;
 
 namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
-    public class FacebookManager
+    public sealed class FacebookManager
     {
+        private FacebookManager m_Instance = null;
+        private readonly object r_CtorContext = new object();
+
+        public FacebookManager Instance
+        {
+             get
+             {
+                  if(m_Instance == null)
+                  {
+                       lock(r_CtorContext)
+                       {
+                            if(m_Instance == null)
+                            {
+                                 m_Instance = new FacebookManager();
+                            }
+                       }
+                  }
+
+                  return m_Instance;
+             }
+        }
 
         public LoginResult LoginResult { get; set; }
 
@@ -22,7 +43,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             AppSettings.LoadFromFile();
         }
 
-        public bool Login(bool rememeberMe)
+        public bool Login(bool i_RememeberMe)
         {
             LoginResult = FacebookService.Login(
                 ConfigurationManager.AppSettings["FacebookAppID"].ToString(),
@@ -46,7 +67,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                "user_posts",
                "user_hometown");
 
-            AppSettings.RememberUser = rememeberMe;
+            AppSettings.RememberUser = i_RememeberMe;
 
             if (!LoginResult.FacebookOAuthResult.IsSuccess)
             {
@@ -65,14 +86,11 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         }
         public void Logout()
         {
-
             FacebookService.Logout(null);
             LoggedInUser = null;
             LoginResult = null;
             AppSettings.RememberUser = false;
             AppSettings.SaveToFile();
-
-
         }
 
         public FacebookObjectCollection<User> FetchFriends()
@@ -94,6 +112,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             FacebookObjectCollection<Post> userPosts = LoggedInUser.Posts;
             return userPosts;
         }
+
         public FacebookObjectCollection<Album> FetchAlbums()
         {
             try
@@ -105,7 +124,6 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             {
                 return null;
             }
-
         }
 
         public void PostStatus(string userInput)
@@ -115,7 +133,6 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         public int BestTimeToGetMostLikes()
         {
-
             FacebookObjectCollection<Post> userPosts = FetchPosts();
             FacebookObjectCollection<Checkin> userCheckins = FetchCheckins();
             FacebookObjectCollection<Album> userAlbums = FetchAlbums();
@@ -135,27 +152,33 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                 .First().Key;
 
             return mostLikedHour;
-
         }
 
         private static void NewMethod<T>(FacebookObjectCollection<T> userPosts, Dictionary<int, List<int>> likesPerHour) where T : PostedItem
         {
-            foreach (T post in userPosts)
-            {
-                DateTime? timeCeated = post.CreatedTime;
-                int? numberOfLikes = post.LikedBy?.Count;
-                if (timeCeated.HasValue)
-                {
-                    if (!likesPerHour.ContainsKey(timeCeated.Value.Hour))
-                    {
-                        likesPerHour.Add(timeCeated.Value.Hour, new List<int>());
-                    }
-                    if (numberOfLikes.HasValue)
-                    {
-                        likesPerHour[timeCeated.Value.Hour].Add(numberOfLikes.Value);
-                    }
-                }
-            }
+            //try
+            //{
+                 foreach (T post in userPosts)
+                 {
+                     DateTime? timeCreated = post.CreatedTime;
+                     int? numberOfLikes = post.LikedBy?.Count;
+                     if (timeCreated.HasValue)
+                     {
+                         if (!likesPerHour.ContainsKey(timeCreated.Value.Hour))
+                         {
+                             likesPerHour.Add(timeCreated.Value.Hour, new List<int>());
+                         }
+                         if (numberOfLikes.HasValue)
+                         {
+                             likesPerHour[timeCreated.Value.Hour].Add(numberOfLikes.Value);
+                         }
+                     }
+                 }
+            //}
+            //catch (Exception ex)
+            //{
+            //        MessageBox.Show("No items to show");
+            //}
         }
     }
 }
