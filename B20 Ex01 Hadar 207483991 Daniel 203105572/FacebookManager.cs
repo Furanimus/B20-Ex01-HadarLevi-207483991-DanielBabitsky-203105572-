@@ -10,6 +10,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
     public sealed class FacebookManager
     {
         private FacebookManager m_Instance = null;
+        private object user;
         private readonly object r_CtorContext = new object();
 
         public FacebookManager Instance
@@ -126,6 +127,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             }
         }
 
+
         public void PostStatus(string userInput)
         {
             LoggedInUser.PostStatus(userInput);
@@ -141,9 +143,9 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
             for (int i = 0; i < 24; i++)
             {
-                NewMethod<Post>(userPosts, likesPerHour);
-                NewMethod<Checkin>(userCheckins, likesPerHour);
-                NewMethod<Album>(userAlbums, likesPerHour);
+                fillLikesCountPerHour(userPosts, likesPerHour);
+                fillLikesCountPerHour(userCheckins, likesPerHour);
+                fillLikesCountPerHour(userAlbums, likesPerHour);
             }
 
             // likesPerHour[0].Sum() / likesPerHour[0].Count
@@ -154,7 +156,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             return mostLikedHour;
         }
 
-        private static void NewMethod<T>(FacebookObjectCollection<T> userPosts, Dictionary<int, List<int>> likesPerHour) where T : PostedItem
+        private static void fillLikesCountPerHour<T>(FacebookObjectCollection<T> userPosts, Dictionary<int, List<int>> likesPerHour) where T : PostedItem
         {
             //try
             //{

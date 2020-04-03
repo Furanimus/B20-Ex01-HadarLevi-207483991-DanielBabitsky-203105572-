@@ -1,6 +1,5 @@
 ﻿using FacebookWrapper.ObjectModel;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Linq;
@@ -359,7 +358,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             FormTextFill newPost = new FormTextFill();
             newPost.StartPosition = FormStartPosition.CenterParent;
             newPost.ShowDialog();
-            
+
             if (!string.IsNullOrEmpty(newPost.UserInput) && !newPost.IsCanceled)
             {
                 try
@@ -384,7 +383,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                 int bestHour = r_FacebookManager.BestTimeToGetMostLikes();
                 lblBestTimeToGetLikes.Text = $"The best time of day to get the most likes is: {bestHour}!";
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }
@@ -392,39 +391,61 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private void buttonGetMostActiveFriends_Click(object i_Sender, EventArgs i_Args)
         {
+            try
+            {
+                for (int i = 0; i < LoggedInUser.Friends.Count; i++)
+                {
+                    User user = LoggedInUser.Friends[i];
+                    chartMostActive.Series["Posts"].Points.AddXY(user.Name, user.Posts.Count);
+                    chartMostActive.Series["Photos"].Points.AddXY(user.Name, user.Albums.Count);
+                    chartMostActive.Series["Checkins"].Points.AddXY(user.Name, user.Checkins.Count);
+                    chartMostActive.Series["Groups"].Points.AddXY(user.Name, user.Groups.Count);
+                    chartMostActive.Series["Events"].Points.AddXY(user.Name, user.Events.Count);
+
+                }
+            }
+
+            catch(Exception ex)
+            {
+
+            }
             //Call Activating Method
 
-            List<List<PostedItem>> userPosts = new List<List<PostedItem>>();
-            userPosts.Add(r_FacebookManager.FetchAlbums().ToList()) as PostedItem);
-            userPosts.Add(r_FacebookManager.FetchPosts().ToList() as PostedItem);
-            userPosts.Add(r_FacebookManager.FetchPosts().ToList() as PostedItem);
-            FacebookObjectCollection<Checkin> userCheckin = r_FacebookManager.FetchCheckins();
+            //Tested Chart with
 
-           
-             //Tested Chart with
-
-             //this.chartMostActive.Series["Posts"].Points.AddXY("Dan", 13);
-             //this.chartMostActive.Series["Photos"].Points.AddXY("Dan", 33);
-             //this.chartMostActive.Series["Posts"].Points.AddXY("Her", 30);
-             //this.chartMostActive.Series["Likes"].Points.AddXY("Her", 20);
+            //this.chartMostActive.Series["Posts"].Points.AddXY("Dan", 13);
+            //this.chartMostActive.Series["Checkins"].Points.AddXY("Dan", 5);
+            //this.chartMostActive.Series["Photos"].Points.AddXY("Dan", 33);
+            //this.chartMostActive.Series["Posts"].Points.AddXY("Her", 30);
+            //this.chartMostActive.Series["Likes"].Points.AddXY("Her", 20);
         }
 
         private void buttonColumnChart_Click(object i_Sender, EventArgs i_Args)
         {
-             changeChartsView(SeriesChartType.Column);
+            changeChartsView(SeriesChartType.Column);
         }
 
         private void buttonLineChart_Click(object i_Sender, EventArgs i_Args)
         {
-             changeChartsView(SeriesChartType.Line);
+            changeChartsView(SeriesChartType.Line);
         }
 
-        private void changeChartsView (SeriesChartType i_ChartType)
+        private void changeChartsView(SeriesChartType i_ChartType)
         {
-             foreach (Series series in chartMostActive.Series)
-             {
-                  series.ChartType = i_ChartType;
-             }
+            foreach (Series series in chartMostActive.Series)
+            {
+                series.ChartType = i_ChartType;
+            }
+        }
+
+        private void chartMostActive_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblName_Click_1(object sender, EventArgs e)
+        {
+
         }
     }
 }
