@@ -368,9 +368,9 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             try
             {
                 //Dictionary<int, List<int>> likePerHour = m_FacebookManager.BestTimeToGetMostLikes();
-                chartLikesPerHours.ChartAreas[0].AxisX.Maximum = 23;
                 chartLikesPerHours.ChartAreas[0].AxisX.Minimum = 0;
                 chartLikesPerHours.ChartAreas[0].AxisX.Interval = 1;
+
                 //forTesting:
                 Dictionary<int, List<int>> likePerHour = new Dictionary<int, List<int>>()
                 { { 13, new List<int>(){ 2,4,6} },
@@ -387,25 +387,16 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                 for (int i = 0; i < 24; i++)
                 {
                     chartLikesPerHours.Series.Add(new Series(i.ToString()));
-                    chartLikesPerHours.Series["0"]["PixelPointWidth"] = "20";
-                    //["PixelPointWidth"] = 15;
-                    chartLikesPerHours.Series["0"].LabelBorderWidth = 34;
+
                     if (likePerHour.ContainsKey(i))
                     {
                         chartLikesPerHours.Series[i].Points.Add(new DataPoint()
                         {
                             XValue = i,
                             YValues = new List<double>() { likePerHour[i].Sum() }.ToArray(),
-                            MarkerSize = 20
                         });
-
-                    }
-                    else
-                    {
-                        chartLikesPerHours.Series[i].Points.Add(0);
                     }
                 }
-
 
                 lblBestTimeToGetLikes.Text = $"The best time of day to get the most likes is: {bestHour}:00 !";
             }
