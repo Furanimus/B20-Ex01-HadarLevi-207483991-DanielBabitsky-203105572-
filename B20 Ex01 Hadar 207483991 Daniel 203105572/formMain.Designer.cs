@@ -29,13 +29,17 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series4 = new System.Windows.Forms.DataVisualization.Charting.Series();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea4 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend4 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series8 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series9 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series10 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series11 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Series series12 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series7 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.Title title2 = new System.Windows.Forms.DataVisualization.Charting.Title();
             this.BottomToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.TopToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.RightToolStripPanel = new System.Windows.Forms.ToolStripPanel();
@@ -77,6 +81,7 @@
             this.buttonGetMostActiveFriends = new System.Windows.Forms.Button();
             this.pictureBoxProfilePicture = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.chartLikesPerHours = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.Main.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabBestTimeMostLikes.SuspendLayout();
@@ -84,6 +89,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartMostActive)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartLikesPerHours)).BeginInit();
             this.SuspendLayout();
             // 
             // BottomToolStripPanel
@@ -167,6 +173,11 @@
             this.button1.Text = "Logout";
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.BackColor = System.Drawing.SystemColors.GradientActiveCaption;
+            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // Main
             // 
@@ -318,6 +329,7 @@
             // tabBestTimeMostLikes
             // 
             this.tabBestTimeMostLikes.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(59)))), ((int)(((byte)(89)))), ((int)(((byte)(162)))));
+            this.tabBestTimeMostLikes.Controls.Add(this.chartLikesPerHours);
             this.tabBestTimeMostLikes.Controls.Add(this.lblBestTimeToGetLikes);
             this.tabBestTimeMostLikes.Controls.Add(this.m_PostBtn);
             this.tabBestTimeMostLikes.Controls.Add(this.m_BestPhotoBtn);
@@ -327,25 +339,27 @@
             this.tabBestTimeMostLikes.Padding = new System.Windows.Forms.Padding(3);
             this.tabBestTimeMostLikes.Size = new System.Drawing.Size(1045, 512);
             this.tabBestTimeMostLikes.TabIndex = 1;
-            this.tabBestTimeMostLikes.Text = "Best time to get the most likes";
+            this.tabBestTimeMostLikes.Text = "Best time to post on Facebook";
+            this.tabBestTimeMostLikes.Click += new System.EventHandler(this.tabBestTimeMostLikes_Click);
             // 
             // lblBestTimeToGetLikes
             // 
             this.lblBestTimeToGetLikes.AutoSize = true;
             this.lblBestTimeToGetLikes.BackColor = System.Drawing.Color.Transparent;
             this.lblBestTimeToGetLikes.Font = new System.Drawing.Font("Arial", 20.25F, System.Drawing.FontStyle.Italic, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblBestTimeToGetLikes.Location = new System.Drawing.Point(54, 171);
+            this.lblBestTimeToGetLikes.Location = new System.Drawing.Point(25, 110);
             this.lblBestTimeToGetLikes.Name = "lblBestTimeToGetLikes";
             this.lblBestTimeToGetLikes.Size = new System.Drawing.Size(0, 31);
             this.lblBestTimeToGetLikes.TabIndex = 5;
+            this.lblBestTimeToGetLikes.Click += new System.EventHandler(this.lblBestTimeToGetLikes_Click);
             // 
             // m_PostBtn
             // 
             this.m_PostBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.m_PostBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.m_PostBtn.Location = new System.Drawing.Point(31, 319);
+            this.m_PostBtn.Location = new System.Drawing.Point(199, 61);
             this.m_PostBtn.Name = "m_PostBtn";
-            this.m_PostBtn.Size = new System.Drawing.Size(293, 59);
+            this.m_PostBtn.Size = new System.Drawing.Size(161, 44);
             this.m_PostBtn.TabIndex = 4;
             this.m_PostBtn.Text = "Post something";
             this.m_PostBtn.UseVisualStyleBackColor = false;
@@ -355,7 +369,7 @@
             // 
             this.m_BestPhotoBtn.BackColor = System.Drawing.SystemColors.ActiveCaption;
             this.m_BestPhotoBtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
-            this.m_BestPhotoBtn.Location = new System.Drawing.Point(40, 101);
+            this.m_BestPhotoBtn.Location = new System.Drawing.Point(25, 61);
             this.m_BestPhotoBtn.Name = "m_BestPhotoBtn";
             this.m_BestPhotoBtn.Size = new System.Drawing.Size(165, 44);
             this.m_BestPhotoBtn.TabIndex = 3;
@@ -368,7 +382,7 @@
             this.label5.AutoSize = true;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(177)));
             this.label5.ForeColor = System.Drawing.Color.White;
-            this.label5.Location = new System.Drawing.Point(26, 36);
+            this.label5.Location = new System.Drawing.Point(26, 21);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(384, 25);
             this.label5.TabIndex = 2;
@@ -437,34 +451,34 @@
             // 
             // chartMostActive
             // 
-            chartArea1.Name = "ChartArea1";
-            this.chartMostActive.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.chartMostActive.Legends.Add(legend1);
+            chartArea4.Name = "ChartArea1";
+            this.chartMostActive.ChartAreas.Add(chartArea4);
+            legend4.Name = "Legend1";
+            this.chartMostActive.Legends.Add(legend4);
             this.chartMostActive.Location = new System.Drawing.Point(25, 279);
             this.chartMostActive.Margin = new System.Windows.Forms.Padding(2);
             this.chartMostActive.Name = "chartMostActive";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Photos";
-            series1.YValuesPerPoint = 4;
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Likes";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Posts";
-            series4.ChartArea = "ChartArea1";
-            series4.Legend = "Legend1";
-            series4.Name = "Checkins";
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Groups";
-            this.chartMostActive.Series.Add(series1);
-            this.chartMostActive.Series.Add(series2);
-            this.chartMostActive.Series.Add(series3);
-            this.chartMostActive.Series.Add(series4);
-            this.chartMostActive.Series.Add(series5);
+            series8.ChartArea = "ChartArea1";
+            series8.Legend = "Legend1";
+            series8.Name = "Photos";
+            series8.YValuesPerPoint = 4;
+            series9.ChartArea = "ChartArea1";
+            series9.Legend = "Legend1";
+            series9.Name = "Likes";
+            series10.ChartArea = "ChartArea1";
+            series10.Legend = "Legend1";
+            series10.Name = "Posts";
+            series11.ChartArea = "ChartArea1";
+            series11.Legend = "Legend1";
+            series11.Name = "Checkins";
+            series12.ChartArea = "ChartArea1";
+            series12.Legend = "Legend1";
+            series12.Name = "Groups";
+            this.chartMostActive.Series.Add(series8);
+            this.chartMostActive.Series.Add(series9);
+            this.chartMostActive.Series.Add(series10);
+            this.chartMostActive.Series.Add(series11);
+            this.chartMostActive.Series.Add(series12);
             this.chartMostActive.Size = new System.Drawing.Size(881, 207);
             this.chartMostActive.TabIndex = 4;
             this.chartMostActive.Text = "chartMostActive";
@@ -527,6 +541,27 @@
             this.pictureBox1.TabIndex = 20;
             this.pictureBox1.TabStop = false;
             // 
+            // chartLikesPerHours
+            // 
+            this.chartLikesPerHours.BackColor = System.Drawing.Color.Transparent;
+            chartArea3.Name = "ChartArea1";
+            this.chartLikesPerHours.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.chartLikesPerHours.Legends.Add(legend3);
+            this.chartLikesPerHours.Location = new System.Drawing.Point(-4, 144);
+            this.chartLikesPerHours.Name = "chartLikesPerHours";
+            series7.ChartArea = "ChartArea1";
+            series7.Legend = "Legend1";
+            series7.Name = "Series1";
+            this.chartLikesPerHours.Series.Add(series7);
+            this.chartLikesPerHours.Size = new System.Drawing.Size(1041, 337);
+            this.chartLikesPerHours.TabIndex = 6;
+            this.chartLikesPerHours.Text = "chart1";
+            title2.Name = "Title1";
+            title2.Text = "Likes per hours";
+            this.chartLikesPerHours.Titles.Add(title2);
+            this.chartLikesPerHours.Click += new System.EventHandler(this.chartLikesPerHours_Click);
+            // 
             // formMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -557,6 +592,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.chartMostActive)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.chartLikesPerHours)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -604,5 +640,6 @@
         private System.Windows.Forms.TextBox textBoxHowManyTopFriends;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.DataVisualization.Charting.Chart chartLikesPerHours;
     }
 }

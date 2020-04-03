@@ -5,56 +5,32 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
     public partial class formLogin : Form
     {
-        public static FacebookManager s_FacebookManager;
+        public FacebookManager m_facebookManager;
 
-        public formLogin()
+        public formLogin(FacebookManager i_facebookManager)
         {
-            s_FacebookManager = new FacebookManager();
+            m_facebookManager = i_facebookManager;
+
+            if (m_facebookManager.AppSettingsInstance.RememberUser && !string.IsNullOrEmpty(m_facebookManager.AppSettingsInstance.LastAccessToken))
+            {
+                OpenMainWindow();
+            }
+            
             InitializeComponent();
-
-            if (s_FacebookManager.AppSettings.RememberUser)
-            {
-                m_RemberMeCheckbox.Checked = s_FacebookManager.AppSettings.RememberUser;
-            }
-        }
-        
-        protected override void OnShown(EventArgs e)
-        {
-            base.OnShown(e);
-
-            try
-            {
-                if (s_FacebookManager.AppSettings.RememberUser && !string.IsNullOrEmpty(s_FacebookManager.AppSettings.AccessToken))
-                {
-                    s_FacebookManager.Connect();
-                    m_RemberMeCheckbox.Enabled = true;
-                    OpenMainWindow();
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
         }
 
         public void OpenMainWindow()
         {
-            Hide();
-            formMain form = new formMain();
+            
+            formMain form = new formMain(m_facebookManager);
             form.Show();
-        }
 
-        private void FacebookForm_Load(object i_Sender, EventArgs i_Args)
-        {
-        }
-
-        private void pictureBox1_Click(object i_Sender, EventArgs i_Args)
-        {
+            Hide();
         }
 
         private void LoginBtn_Click(object sender, EventArgs e)
         {
-            bool loginSuccessfully = s_FacebookManager.Login(m_RemberMeCheckbox.Checked);
+            bool loginSuccessfully = m_facebookManager.Login(m_RemberMeCheckbox.Checked);
 
             if (loginSuccessfully)
             {
@@ -62,7 +38,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             }
             else
             {
-                MessageBox.Show($"There was an error login: {s_FacebookManager.LoginResult.ErrorMessage}");
+                MessageBox.Show($"There was an error login: {m_facebookManager.LoginResult.ErrorMessage}");
             }
         }
 

@@ -8,25 +8,23 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
-
-
     public partial class formMain : Form
     {
         private const int k_PictureBoxSize = 64;
 
-        private FacebookManager r_FacebookManager;
+        private FacebookManager m_FacebookManager;
 
         public User LoggedInUser
         {
             get
             {
-                return r_FacebookManager.LoggedInUser;
+                return m_FacebookManager.LoggedInUser;
             }
         }
 
-        public formMain()
+        public formMain(FacebookManager i_facebookManager)
         {
-            r_FacebookManager = formLogin.s_FacebookManager;
+            m_FacebookManager = i_facebookManager;
 
             InitializeComponent();
 
@@ -160,6 +158,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             }
 
         }
+
         private void buttonFetchCheckins_Click(object i_Sender, EventArgs i_Args)
         {
 
@@ -170,7 +169,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         {
             panelFriends.Controls.Clear();
 
-            List<User> userFriends = r_FacebookManager.FetchFriends().ToList();
+            List<User> userFriends = m_FacebookManager.FetchFriends().ToList();
             if (!string.IsNullOrWhiteSpace(searchText))
             {
                 userFriends = userFriends.Where(friend => friend.Name.ToLower().Contains(searchText.ToLower())).ToList();
@@ -188,7 +187,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         {
             panelChekins.Controls.Clear();
 
-            List<Checkin> userCheckins = r_FacebookManager.FetchCheckins().ToList();
+            List<Checkin> userCheckins = m_FacebookManager.FetchCheckins().ToList();
             if (!string.IsNullOrWhiteSpace(searchText))
             {
                 userCheckins = userCheckins
@@ -209,7 +208,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         private void displayPosts(string searchText = null)
         {
             panelPosts.Controls.Clear();
-            List<Post> userPosts = r_FacebookManager.FetchPosts().ToList();
+            List<Post> userPosts = m_FacebookManager.FetchPosts().ToList();
             if (!string.IsNullOrWhiteSpace(searchText))
             {
                 userPosts = userPosts
@@ -243,13 +242,15 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
         private void button1_Click(object sender, EventArgs e)
         {
-            r_FacebookManager.Logout();
+            m_FacebookManager.Logout();
             OpenLoginWindow();
         }
+
         public void OpenLoginWindow()
         {
             Hide();
-            formLogin form = new formLogin();
+
+            formLogin form = new formLogin(m_FacebookManager);
             form.Show();
         }
 
@@ -319,20 +320,6 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         {
         }
 
-        protected override void OnFormClosing(FormClosingEventArgs e)
-        {
-            base.OnFormClosing(e);
-            if (r_FacebookManager.LoginResult != null)
-            {
-                if (!string.IsNullOrEmpty(r_FacebookManager.LoginResult.AccessToken))
-                {
-                    r_FacebookManager.AppSettings.AccessToken = r_FacebookManager.LoginResult.AccessToken;
-                }
-            }
-
-            r_FacebookManager.AppSettings.SaveToFile();
-        }
-
         private void buttonFindCheckin_Click(object sender, EventArgs e)
         {
             displayCheckins(textBoxCheckinsSearch.Text);
@@ -363,7 +350,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             {
                 try
                 {
-                    r_FacebookManager.PostStatus(newPost.UserInput);
+                    m_FacebookManager.PostStatus(newPost.UserInput);
                 }
                 catch (Exception ex)
                 {
@@ -380,8 +367,47 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         {
             try
             {
-                int bestHour = r_FacebookManager.BestTimeToGetMostLikes();
-                lblBestTimeToGetLikes.Text = $"The best time of day to get the most likes is: {bestHour}!";
+                //Dictionary<int, List<int>> likePerHour = m_FacebookManager.BestTimeToGetMostLikes();
+                chartLikesPerHours.ChartAreas[0].AxisX.Maximum = 23;
+                chartLikesPerHours.ChartAreas[0].AxisX.Minimum = 0;
+                chartLikesPerHours.ChartAreas[0].AxisX.Interval = 1;
+                //forTesting:
+                Dictionary<int, List<int>> likePerHour = new Dictionary<int, List<int>>()
+                { { 13, new List<int>(){ 2,4,6} },
+                { 23, new List<int>(){ 2} },
+                { 17, new List<int>(){ 1,1,4} },
+                { 19, new List<int>(){ 12,7,6,10 } },
+                { 15, new List<int>(){ 3} }
+                };
+
+                int bestHour = likePerHour
+                    .OrderByDescending(kv => kv.Value.Sum() / kv.Value.Count)
+                    .First().Key;
+
+                for (int i = 0; i < 24; i++)
+                {
+                    chartLikesPerHours.Series.Add(new Series(i.ToString()));
+                    chartLikesPerHours.Series["0"]["PixelPointWidth"] = "20";
+                    //["PixelPointWidth"] = 15;
+                    chartLikesPerHours.Series["0"].LabelBorderWidth = 34;
+                    if (likePerHour.ContainsKey(i))
+                    {
+                        chartLikesPerHours.Series[i].Points.Add(new DataPoint()
+                        {
+                            XValue = i,
+                            YValues = new List<double>() { likePerHour[i].Sum() }.ToArray(),
+                            MarkerSize = 20
+                        });
+
+                    }
+                    else
+                    {
+                        chartLikesPerHours.Series[i].Points.Add(0);
+                    }
+                }
+
+
+                lblBestTimeToGetLikes.Text = $"The best time of day to get the most likes is: {bestHour}:00 !";
             }
             catch (Exception ex)
             {
@@ -405,7 +431,7 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                 }
             }
 
-            catch(Exception ex)
+            catch (Exception ex)
             {
 
             }
@@ -444,6 +470,31 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
         }
 
         private void lblName_Click_1(object sender, EventArgs e)
+        {
+
+        }
+
+        private void toolTip1_Popup(object sender, PopupEventArgs e)
+        {
+
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void chartLikesPerHours_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void tabBestTimeMostLikes_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void lblBestTimeToGetLikes_Click(object sender, EventArgs e)
         {
 
         }

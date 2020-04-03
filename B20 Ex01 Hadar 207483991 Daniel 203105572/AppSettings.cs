@@ -1,39 +1,59 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Xml.Serialization;
 
 namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
-    public class AppSettings
+    public sealed class AppSettings
     {
-        public bool RememberUser { get; set; }
+        private static AppSettings m_AppSettings = null;
 
-        public string AccessToken { get; set; }
+        private static object m_lock = new object();
+        
+        public bool RememberUser { get; set; }          
+        
+        public string LastAccessToken { get; set; }
 
-        public AppSettings()
+        private AppSettings()
         {
             RememberUser = false;
-            AccessToken = null;
+            LastAccessToken = null;
         }
 
-        // move all properties with reflection
-        public void LoadFromFile()
+        public static AppSettings Instance
         {
-            try
+            get
+            {
+                if (m_AppSettings == null)
+                {
+                    lock (m_lock)
+                    {
+                        if (m_AppSettings == null)
+                        {
+                            m_AppSettings = LoadFromFile();
+                        }
+                    }
+                }
+
+                return m_AppSettings;
+            }
+        }
+
+        private static AppSettings LoadFromFile()
+        {
+            AppSettings m_AppSettings = new AppSettings();
+
+            string filePath = Path.Combine(Directory.GetCurrentDirectory(), "AppSettings.xml");
+
+            if (File.Exists(filePath))
             {
                 using (Stream stream = new FileStream(Path.Combine(Directory.GetCurrentDirectory(), "AppSettings.xml"), FileMode.Open))
                 {
                     XmlSerializer serializer = new XmlSerializer(typeof(AppSettings));
-                    AppSettings obj = serializer.Deserialize(stream) as AppSettings;
-                    this.AccessToken = obj.AccessToken;
-                    this.RememberUser = obj.RememberUser;
+                    m_AppSettings = serializer.Deserialize(stream) as AppSettings;
                 }
             }
-            catch (Exception ex)
-            {
-            }
+            return m_AppSettings;
         }
-
 
         public void SaveToFile()
         {

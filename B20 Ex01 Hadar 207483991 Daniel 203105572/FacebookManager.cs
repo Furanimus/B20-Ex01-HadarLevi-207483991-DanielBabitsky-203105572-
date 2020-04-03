@@ -9,67 +9,29 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 {
     public sealed class FacebookManager
     {
-        private FacebookManager m_Instance = null;
-        private object user;
-        private readonly object r_CtorContext = new object();
 
-        public FacebookManager Instance
+        private readonly string[] r_Permissions = new string[]
         {
-             get
-             {
-                  if(m_Instance == null)
-                  {
-                       lock(r_CtorContext)
-                       {
-                            if(m_Instance == null)
-                            {
-                                 m_Instance = new FacebookManager();
-                            }
-                       }
-                  }
-
-                  return m_Instance;
-             }
-        }
+            "public_profile", "email", "user_birthday", "user_age_range", "user_gender", "user_link", "user_tagged_places",
+            "user_videos", "publish_to_groups", "groups_access_member_info", "user_friends", "user_events", "user_likes",
+            "user_location","publish_pages" , "user_photos","manage_pages", "user_posts", "user_hometown"
+        };
 
         public LoginResult LoginResult { get; set; }
 
         public User LoggedInUser { get; set; }
 
-        public AppSettings AppSettings { get; set; }
+        public AppSettings AppSettingsInstance { get; set; }
 
-        public FacebookManager()
+        public FacebookManager(AppSettings AppSettings)
         {
-            AppSettings = new AppSettings();
-            AppSettings.LoadFromFile();
+            AppSettingsInstance = AppSettings;
         }
 
         public bool Login(bool i_RememeberMe)
         {
-            LoginResult = FacebookService.Login(
-                ConfigurationManager.AppSettings["FacebookAppID"].ToString(),
-               "public_profile",
-               "email",
-               "user_birthday",
-               "user_age_range",
-               "user_gender",
-               "user_link",
-               "manage_pages",
-               "publish_pages",
-               "user_tagged_places",
-               "user_videos",
-               "publish_to_groups",
-               "groups_access_member_info",
-               "user_friends",
-               "user_events",
-               "user_likes",
-               "user_location",
-               "user_photos",
-               "user_posts",
-               "user_hometown");
-
-            AppSettings.RememberUser = i_RememeberMe;
-
+            LoginResult = FacebookService.Login(ConfigurationManager.AppSettings["FacebookAppID"].ToString(), r_Permissions);
+            
             if (!LoginResult.FacebookOAuthResult.IsSuccess)
             {
                 return false;
@@ -77,21 +39,27 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
 
             LoggedInUser = LoginResult.LoggedInUser;
 
+            AppSettingsInstance.LastAccessToken = LoginResult.AccessToken;
+            AppSettingsInstance.RememberUser = i_RememeberMe;
+
+            AppSettingsInstance.SaveToFile();
+
             return true;
         }
 
         public void Connect()
         {
-            LoginResult = FacebookService.Connect(AppSettings.AccessToken);
+            LoginResult = FacebookService.Connect(AppSettingsInstance.LastAccessToken);
             LoggedInUser = LoginResult.LoggedInUser;
         }
+
         public void Logout()
         {
             FacebookService.Logout(null);
             LoggedInUser = null;
             LoginResult = null;
-            AppSettings.RememberUser = false;
-            AppSettings.SaveToFile();
+            AppSettingsInstance.RememberUser = false;
+            AppSettingsInstance.SaveToFile();
         }
 
         public FacebookObjectCollection<User> FetchFriends()
@@ -127,13 +95,12 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
             }
         }
 
-
         public void PostStatus(string userInput)
         {
             LoggedInUser.PostStatus(userInput);
         }
 
-        public int BestTimeToGetMostLikes()
+        public Dictionary<int, List<int>> BestTimeToGetMostLikes()
         {
             FacebookObjectCollection<Post> userPosts = FetchPosts();
             FacebookObjectCollection<Checkin> userCheckins = FetchCheckins();
@@ -148,39 +115,36 @@ namespace B20_Ex01_Hadar_207483991_Daniel_203105572
                 fillLikesCountPerHour(userAlbums, likesPerHour);
             }
 
-            // likesPerHour[0].Sum() / likesPerHour[0].Count
-            int mostLikedHour = likesPerHour
-                .OrderByDescending(kv => kv.Value.Sum() / kv.Value.Count)
-                .First().Key;
+            return likesPerHour;
 
-            return mostLikedHour;
         }
 
-        private static void fillLikesCountPerHour<T>(FacebookObjectCollection<T> userPosts, Dictionary<int, List<int>> likesPerHour) where T : PostedItem
+        private void fillLikesCountPerHour<T>(FacebookObjectCollection<T> userPosts, Dictionary<int, List<int>> likesPerHour) where T : PostedItem
         {
             //try
             //{
-                 foreach (T post in userPosts)
-                 {
-                     DateTime? timeCreated = post.CreatedTime;
-                     int? numberOfLikes = post.LikedBy?.Count;
-                     if (timeCreated.HasValue)
-                     {
-                         if (!likesPerHour.ContainsKey(timeCreated.Value.Hour))
-                         {
-                             likesPerHour.Add(timeCreated.Value.Hour, new List<int>());
-                         }
-                         if (numberOfLikes.HasValue)
-                         {
-                             likesPerHour[timeCreated.Value.Hour].Add(numberOfLikes.Value);
-                         }
-                     }
-                 }
+            foreach (T post in userPosts)
+            {
+                DateTime? timeCreated = post.CreatedTime;
+                int? numberOfLikes = post.LikedBy?.Count;
+                if (timeCreated.HasValue)
+                {
+                    if (!likesPerHour.ContainsKey(timeCreated.Value.Hour))
+                    {
+                        likesPerHour.Add(timeCreated.Value.Hour, new List<int>());
+                    }
+                    if (numberOfLikes.HasValue)
+                    {
+                        likesPerHour[timeCreated.Value.Hour].Add(numberOfLikes.Value);
+                    }
+                }
+            }
             //}
             //catch (Exception ex)
             //{
             //        MessageBox.Show("No items to show");
             //}
         }
+
     }
 }
