@@ -42,7 +42,6 @@
             this.LeftToolStripPanel = new System.Windows.Forms.ToolStripPanel();
             this.ContentPanel = new System.Windows.Forms.ToolStripContentPanel();
             this.buttonOpenFBBrowser = new System.Windows.Forms.Button();
-            this.pictureBoxProfilePicture = new System.Windows.Forms.PictureBox();
             this.lblName = new System.Windows.Forms.Label();
             this.lblHello = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
@@ -76,13 +75,14 @@
             this.listBoxByPosts = new System.Windows.Forms.ListBox();
             this.listBoxMostActiveByPhotos = new System.Windows.Forms.ListBox();
             this.buttonGetMostActiveFriends = new System.Windows.Forms.Button();
+            this.pictureBoxProfilePicture = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePicture)).BeginInit();
             this.Main.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.tabBestTimeMostLikes.SuspendLayout();
             this.tabPage3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartMostActive)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePicture)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -131,15 +131,6 @@
             this.buttonOpenFBBrowser.Text = "Open Facebook in broswer mode";
             this.buttonOpenFBBrowser.UseVisualStyleBackColor = true;
             this.buttonOpenFBBrowser.Click += new System.EventHandler(this.buttonOpenFBBrowser_Click);
-            // 
-            // pictureBoxProfilePicture
-            // 
-            this.pictureBoxProfilePicture.Location = new System.Drawing.Point(12, 55);
-            this.pictureBoxProfilePicture.Name = "pictureBoxProfilePicture";
-            this.pictureBoxProfilePicture.Size = new System.Drawing.Size(100, 100);
-            this.pictureBoxProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-            this.pictureBoxProfilePicture.TabIndex = 6;
-            this.pictureBoxProfilePicture.TabStop = false;
             // 
             // lblName
             // 
@@ -517,9 +508,19 @@
             this.buttonGetMostActiveFriends.UseVisualStyleBackColor = true;
             this.buttonGetMostActiveFriends.Click += new System.EventHandler(this.buttonGetMostActiveFriends_Click);
             // 
+            // pictureBoxProfilePicture
+            // 
+            this.pictureBoxProfilePicture.Location = new System.Drawing.Point(12, 55);
+            this.pictureBoxProfilePicture.Name = "pictureBoxProfilePicture";
+            this.pictureBoxProfilePicture.Size = new System.Drawing.Size(100, 100);
+            this.pictureBoxProfilePicture.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBoxProfilePicture.TabIndex = 6;
+            this.pictureBoxProfilePicture.TabStop = false;
+            // 
             // pictureBox1
             // 
-            this.pictureBox1.BackgroundImage = global::B20_Ex01_Hadar_207483991_Daniel_203105572.Properties.Resources.download;
+            this.pictureBox1.Image = global::B20_Ex01_Hadar_207483991_Daniel_203105572.Properties.Resources.download;
+            this.pictureBox1.InitialImage = null;
             this.pictureBox1.Location = new System.Drawing.Point(136, 26);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(367, 137);
@@ -546,7 +547,6 @@
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.formMain_FormClosing);
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.formMain_FormClosed);
             this.Load += new System.EventHandler(this.formMain_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePicture)).EndInit();
             this.Main.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
             this.tabPage1.PerformLayout();
@@ -555,6 +555,7 @@
             this.tabPage3.ResumeLayout(false);
             this.tabPage3.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.chartMostActive)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxProfilePicture)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
